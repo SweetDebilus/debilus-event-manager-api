@@ -15,9 +15,11 @@ public class Feedback {
     private Long id;
 
     @ManyToOne
+    @JoinColumn (name="user_id")
     private User user;
 
     @ManyToOne
+    @JoinColumn(name="event_id")
     private Event event;
 
     private String message;

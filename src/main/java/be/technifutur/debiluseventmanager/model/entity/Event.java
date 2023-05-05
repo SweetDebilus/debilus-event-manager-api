@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "event")
@@ -25,8 +26,16 @@ public class Event {
     private LocalDateTime endDate;
 
     @ManyToMany
-    private User participants;
+    @JoinTable(
+            name = "event_user",
+            joinColumns = @JoinColumn(name = "event_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private List<User> participants;
 
     @ManyToOne
+    @JoinColumn(name="organizer_id", nullable = false)
     private User organizer;
+
+    @OneToMany(mappedBy = "event")
+    private List<Feedback> feedbacks;
 }

@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table(name = "conflict_report")
 @Getter
@@ -15,10 +17,15 @@ public class ConflictReport {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(nullable = false, name = "author_id")
     private User author;
 
     @ManyToMany
-    private User accused;
+    @JoinTable(
+            name = "conflict_report_user",
+            joinColumns = @JoinColumn(name = "conflict_report_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private List<User> accused;
 
     private String message;
 }

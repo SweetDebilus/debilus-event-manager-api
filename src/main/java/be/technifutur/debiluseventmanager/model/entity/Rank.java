@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table(name = "rank")
 @Getter
@@ -14,8 +16,8 @@ public class Rank {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @ManyToOne
-    private User user;
+    @OneToMany(mappedBy = "rank")
+    private List<User> users;
 
     private String name;
 
