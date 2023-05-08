@@ -19,7 +19,7 @@ public class Job {
     @Column(name = "name", nullable = false, length = 50)
     private String name;
 
-    @ManyToMany(mappedBy = "job")
+    @ManyToMany(mappedBy = "jobs")
     private List<User> users;
 
 }

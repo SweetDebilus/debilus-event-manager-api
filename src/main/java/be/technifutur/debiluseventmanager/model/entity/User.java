@@ -23,12 +23,15 @@ public class User {
     @Column(name = "password", nullable = false, length = 50)
     private String password;
 
+    @Column(name = "gender", nullable = false, length = 50)
+    private String gender;
+
     @ManyToMany
     @JoinTable(
             name = "user_job",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "job_id"))
-    private List<Job> job;
+    private List<Job> jobs;
 
     @ManyToOne
     @JoinColumn(name = "Rank_id", nullable = false)
@@ -46,5 +49,8 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Feedback> feedbacks;
+
+    @Column(name = "is_active", nullable = false)
+    private boolean isActive;
 
 }
