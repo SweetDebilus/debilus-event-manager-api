@@ -38,6 +38,12 @@ public class UserController {
         userService.deleteUser(id);
     }
 
+    @PatchMapping("/{id}/reactivate")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public void reactivate(@PathVariable Long id) {
+        userService.reactivateUser(id);
+    }
+
     @GetMapping("/{id}")
     public UserDTO getUserById(@PathVariable Long id) {
         return userService.getUserById(id);

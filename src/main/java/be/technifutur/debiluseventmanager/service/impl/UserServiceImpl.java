@@ -49,14 +49,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUser(UserForm user, Long id) {
+    public void updateUser(UserForm userForm, Long id) {
         User userToUpdate = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
-        userToUpdate.setUsername(user.getUsername());
-        userToUpdate.setPassword(user.getPassword());
-        userToUpdate.setGender(user.getGender());
-        userToUpdate.setJobs(user.getJobs().stream().map(jobRepository::findByName).toList());
-        userToUpdate.setRace(raceRepository.findByName(user.getRace()));
-        userToUpdate.setRank(rankRepository.findByName(user.getRank()));
+        userToUpdate.setUsername(userForm.getUsername());
+        userToUpdate.setPassword(userForm.getPassword());
+        userToUpdate.setGender(userForm.getGender());
+        List<Job> jobs = new ArrayList<>();
+        for (String job : userForm.getJobs()) {
+            jobs.add(jobRepository.findByName(job));
+        }
+        Race race = raceRepository.findByName(userForm.getRace());
+        Rank rank = rankRepository.findByName(userForm.getRank());
+        userToUpdate.setJobs(jobs);
+        userToUpdate.setRace(race);
+        userToUpdate.setRank(rank);
+        userToUpdate.setActive(true);
         userRepository.save(userToUpdate);
     }
 
@@ -83,5 +90,19 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserDTO> getAllUsers() {
         return userRepository.findAll().stream().map(UserDTO::from).toList();
+    }
+
+    @Override
+    public void reactivateUser(Long id) {
+        User userToReactivate = userRepository.findById(id).orElse(null);
+        if (userToReactivate != null) {
+            RegistrationHistory registrationHistory = new RegistrationHistory();
+            registrationHistory.setUser(userToReactivate);
+            registrationHistory.setDateOfRegistration(LocalDate.now());
+            registrationHistoryRepository.save(registrationHistory);
+            userToReactivate.setActive(true);
+            userRepository.save(userToReactivate);
+        }
+
     }
 }

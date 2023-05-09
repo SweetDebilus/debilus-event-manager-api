@@ -53,4 +53,20 @@ public class User {
     @Column(name = "is_active", nullable = false)
     private boolean isActive;
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", gender='" + gender + '\'' +
+                ", jobs=" + jobs +
+                ", rank=" + rank +
+                ", race=" + race +
+                ", registrationHistories=" + registrationHistories +
+                ", conflictReports=" + conflictReports +
+                ", feedbacks=" + feedbacks +
+                ", isActive=" + isActive +
+                '}';
+    }
 }

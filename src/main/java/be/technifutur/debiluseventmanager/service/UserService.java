@@ -19,4 +19,6 @@ public interface UserService {
 
     List<UserDTO> getAllUsers ();
 
+    void reactivateUser (Long id);
+
 }
