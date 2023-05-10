@@ -143,7 +143,7 @@ public class DataInit implements InitializingBean {
         rankRepository.save(rank);
 
         User user = new User();
-        user.setUsername("SelenaSweetheart");
+        user.setUsername("Selena Sweetheart");
         user.setPassword("1234");
         user.setGender("Female");
         user.setJobs(jobRepository.findAll());
