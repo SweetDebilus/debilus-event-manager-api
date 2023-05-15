@@ -145,7 +145,7 @@ public class DataInit implements InitializingBean {
         User user = new User();
         user.setUsername("Selena Sweetheart");
         user.setPassword("1234");
-        user.setGender("Female");
+        user.setGender(false);
         user.setJobs(jobRepository.findAll());
         user.setRace(raceRepository.findByName("Miqo'te"));
         user.setRank(rankRepository.findByName("Demon General"));

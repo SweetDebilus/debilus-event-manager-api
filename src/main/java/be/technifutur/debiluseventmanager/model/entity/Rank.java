@@ -11,14 +11,15 @@ import java.util.List;
 @Getter
 @Setter
 public class Rank {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
+    private String name;
+
     @OneToMany(mappedBy = "rank")
     private List<User> users;
-
-    private String name;
 
 }

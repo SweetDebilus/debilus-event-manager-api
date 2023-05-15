@@ -23,8 +23,8 @@ public class User {
     @Column(name = "password", nullable = false, length = 50)
     private String password;
 
-    @Column(name = "gender", nullable = false, length = 50)
-    private String gender;
+    @Column(name = "gender", nullable = false)
+    private boolean gender;
 
     @ManyToMany
     @JoinTable(
@@ -53,20 +53,4 @@ public class User {
     @Column(name = "is_active", nullable = false)
     private boolean isActive;
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", gender='" + gender + '\'' +
-                ", jobs=" + jobs +
-                ", rank=" + rank +
-                ", race=" + race +
-                ", registrationHistories=" + registrationHistories +
-                ", conflictReports=" + conflictReports +
-                ", feedbacks=" + feedbacks +
-                ", isActive=" + isActive +
-                '}';
-    }
 }

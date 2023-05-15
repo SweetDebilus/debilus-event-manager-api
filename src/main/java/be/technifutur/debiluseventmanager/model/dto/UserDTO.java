@@ -25,7 +25,7 @@ public class UserDTO {
         }
         return UserDTO.builder()
                 .username(entity.getUsername())
-                .gender(entity.getGender())
+                .gender(entity.isGender() ? "Male" : "Female")
                 .jobs(entity.getJobs().stream().map(JobDTO::from).toList())
                 .rank(RankDTO.from(entity.getRank()))
                 .race(RaceDTO.from(entity.getRace()))

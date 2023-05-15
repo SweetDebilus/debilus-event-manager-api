@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
         User userToUpdate = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
         userToUpdate.setUsername(userForm.getUsername());
         userToUpdate.setPassword(userForm.getPassword());
-        userToUpdate.setGender(userForm.getGender());
+        userToUpdate.setGender(userForm.isGender());
         List<Job> jobs = new ArrayList<>();
         for (String job : userForm.getJobs()) {
             jobs.add(jobRepository.findByName(job));
@@ -89,7 +89,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDTO> getAllUsers() {
-        return userRepository.findAll().stream().map(UserDTO::from).toList();
+        return userRepository.findAll().stream().filter(User::isActive).map(UserDTO::from).toList();
     }
 
     @Override
@@ -103,6 +103,7 @@ public class UserServiceImpl implements UserService {
             userToReactivate.setActive(true);
             userRepository.save(userToReactivate);
         }
-
     }
+
+
 }

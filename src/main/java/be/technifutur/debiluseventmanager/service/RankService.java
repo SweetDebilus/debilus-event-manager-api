@@ -1,18 +1,20 @@
 package be.technifutur.debiluseventmanager.service;
 
 import be.technifutur.debiluseventmanager.model.dto.RankDTO;
+import be.technifutur.debiluseventmanager.model.dto.RankUserDTO;
+import be.technifutur.debiluseventmanager.model.form.RankForm;
 
 import java.util.List;
 
 public interface RankService {
 
-    void createRank ();
+    void createRank (RankForm rankForm);
 
-    void updateRank ();
+    void updateRank (RankForm rankForm, long id);
 
-    void deleteRank ();
+    void deleteRank (Long id);
 
-    RankDTO getRankById ();
+    RankUserDTO getRankById (Long id);
 
-    List<RankDTO> getAllRanks ();
+    List<RankUserDTO> getAllRanks ();
 }
