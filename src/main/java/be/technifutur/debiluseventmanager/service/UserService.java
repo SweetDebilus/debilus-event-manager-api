@@ -4,6 +4,7 @@ import be.technifutur.debiluseventmanager.model.dto.UserDTO;
 import be.technifutur.debiluseventmanager.model.form.UserForm;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
 
@@ -15,7 +16,7 @@ public interface UserService {
 
     UserDTO getUserById (Long id);
 
-    UserDTO getUserByUsername (String username);
+    Optional<UserDTO> getUserByUsername (String username);
 
     List<UserDTO> getAllUsers ();
 

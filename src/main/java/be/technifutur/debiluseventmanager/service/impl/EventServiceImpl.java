@@ -10,6 +10,7 @@ import be.technifutur.debiluseventmanager.service.EventService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EventServiceImpl implements EventService{
@@ -25,9 +26,10 @@ public class EventServiceImpl implements EventService{
     @Override
     public void createEvent(EventForm eventForm) {
         Event event = EventForm.toEntity(eventForm);
-        User organizer = userRepository.findByUsername(eventForm.getOrganizer());
+        Optional<User> organizer = userRepository.findByUsername(eventForm.getOrganizer());
         System.out.println(organizer.toString());
-        event.setOrganizer(organizer);
+        if (organizer.isEmpty()) throw new RuntimeException("Organizer not found");
+        event.setOrganizer(organizer.get());
         eventRepository.save(event);
     }
 

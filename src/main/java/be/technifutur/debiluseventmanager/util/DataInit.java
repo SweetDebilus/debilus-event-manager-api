@@ -3,6 +3,7 @@ package be.technifutur.debiluseventmanager.util;
 import be.technifutur.debiluseventmanager.model.entity.*;
 import be.technifutur.debiluseventmanager.repository.*;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -17,13 +18,15 @@ public class DataInit implements InitializingBean {
     private final RankRepository rankRepository;
     private final UserRepository userRepository;
     private final RegistrationHistoryRepository registrationHistoryRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public DataInit(JobRepository jobRepository, RaceRepository raceRepository, RankRepository rankRepository, UserRepository userRepository, RegistrationHistoryRepository registrationHistoryRepository) {
+    public DataInit(JobRepository jobRepository, RaceRepository raceRepository, RankRepository rankRepository, UserRepository userRepository, RegistrationHistoryRepository registrationHistoryRepository, PasswordEncoder passwordEncoder) {
         this.jobRepository = jobRepository;
         this.raceRepository = raceRepository;
         this.rankRepository = rankRepository;
         this.userRepository = userRepository;
         this.registrationHistoryRepository = registrationHistoryRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -144,7 +147,7 @@ public class DataInit implements InitializingBean {
 
         User user = new User();
         user.setUsername("Selena Sweetheart");
-        user.setPassword("1234");
+        user.setPassword(passwordEncoder.encode("1234"));
         user.setGender(false);
         user.setJobs(jobRepository.findAll());
         user.setRace(raceRepository.findByName("Miqo'te"));

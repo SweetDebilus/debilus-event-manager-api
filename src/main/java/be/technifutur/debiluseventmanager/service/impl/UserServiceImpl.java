@@ -5,11 +5,13 @@ import be.technifutur.debiluseventmanager.model.entity.*;
 import be.technifutur.debiluseventmanager.model.form.UserForm;
 import be.technifutur.debiluseventmanager.repository.*;
 import be.technifutur.debiluseventmanager.service.UserService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -20,17 +22,21 @@ public class UserServiceImpl implements UserService {
     private final RaceRepository raceRepository;
     private final RankRepository rankRepository;
 
-    public UserServiceImpl(UserRepository userRepository, RegistrationHistoryRepository registrationHistoryRepository, JobRepository jobRepository, RaceRepository raceRepository, RankRepository rankRepository) {
+    private final PasswordEncoder passwordEncoder;
+
+    public UserServiceImpl(UserRepository userRepository, RegistrationHistoryRepository registrationHistoryRepository, JobRepository jobRepository, RaceRepository raceRepository, RankRepository rankRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.registrationHistoryRepository = registrationHistoryRepository;
         this.jobRepository = jobRepository;
         this.raceRepository = raceRepository;
         this.rankRepository = rankRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public void createUser(UserForm userForm) {
         User user = userForm.toEntity();
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         RegistrationHistory registrationHistory = new RegistrationHistory();
         List<Job> jobs = new ArrayList<>();
         for (String job : userForm.getJobs()) {
@@ -82,9 +88,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO getUserByUsername(String username) {
-        User user = userRepository.findByUsername(username);
-        return UserDTO.from(user);
+    public Optional<UserDTO> getUserByUsername(String username) {
+        Optional<User> user = userRepository.findByUsername(username);
+        return user.map(UserDTO::from);
     }
 
     @Override

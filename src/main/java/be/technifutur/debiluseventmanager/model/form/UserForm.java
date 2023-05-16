@@ -17,7 +17,7 @@ public class UserForm {
     private String username;
     @NotBlank
     private String password;
-    @NotBlank
+    @NotNull
     private boolean gender;
     @NotNull
     private List<String> jobs;
