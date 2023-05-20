@@ -13,6 +13,8 @@ public class UserDTO {
 
     private String username;
     private String gender;
+    private String characterId;
+    private String characterName;
     private List<JobDTO> jobs;
     private RankDTO rank;
     private RaceDTO race;
@@ -26,6 +28,8 @@ public class UserDTO {
         return UserDTO.builder()
                 .username(entity.getUsername())
                 .gender(entity.isGender() ? "Male" : "Female")
+                .characterId(entity.getCharacterId())
+                .characterName(entity.getCharacterName())
                 .jobs(entity.getJobs().stream().map(JobDTO::from).toList())
                 .rank(RankDTO.from(entity.getRank()))
                 .race(RaceDTO.from(entity.getRace()))

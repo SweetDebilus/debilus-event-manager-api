@@ -17,9 +17,12 @@ public class UserForm {
     private String username;
     @NotBlank
     private String password;
+    @NotBlank
+    private String characterId;
+    @NotBlank
+    private String characterName;
     @NotNull
     private boolean gender;
-    @NotNull
     private List<String> jobs;
     @NotBlank
     private String rank;
@@ -30,6 +33,8 @@ public class UserForm {
         User user = new User();
         user.setUsername(this.username);
         user.setPassword(this.password);
+        user.setCharacterId(this.characterId);
+        user.setCharacterName(this.characterName);
         user.setGender(this.gender);
         return user;
     }

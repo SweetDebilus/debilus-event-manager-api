@@ -145,7 +145,7 @@ public class DataInit implements InitializingBean {
         rank.setName("Alter Ego");
         rankRepository.save(rank);
 
-        User user = new User();
+        /*User user = new User();
         user.setUsername("Selena Sweetheart");
         user.setPassword(passwordEncoder.encode("1234"));
         user.setGender(false);
@@ -160,7 +160,7 @@ public class DataInit implements InitializingBean {
         registrationHistories.add(registrationHistory);
         user.setRegistrationHistories(registrationHistories);
         userRepository.save(user);
-        registrationHistoryRepository.save(registrationHistory);
+        registrationHistoryRepository.save(registrationHistory);*/
 
     }
 }

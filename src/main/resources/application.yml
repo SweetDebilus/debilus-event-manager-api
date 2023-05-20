@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:6969/debilus_event_manager
     username: postgres
-    password: 1234
+    password: admin
     driver-class-name: org.postgresql.Driver
   jpa:
     show-sql: true

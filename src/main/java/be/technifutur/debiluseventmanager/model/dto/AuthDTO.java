@@ -9,5 +9,6 @@ public class AuthDTO {
 
     private String username;
     private String token;
+    private String role;
     
 }

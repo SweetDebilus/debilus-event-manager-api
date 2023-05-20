@@ -23,7 +23,7 @@ public class AuthServiceImpl implements AuthService {
     public AuthDTO login(LoginForm loginForm) {
         Authentication auth = new UsernamePasswordAuthenticationToken(loginForm.getUsername(), loginForm.getPassword());
         auth = authenticationManager.authenticate(auth);
-        return new AuthDTO(auth.getName(), jwtProvider.createToken(auth));
+        return new AuthDTO(auth.getName(), jwtProvider.createToken(auth), auth.getAuthorities().toString());
     }
 
 }

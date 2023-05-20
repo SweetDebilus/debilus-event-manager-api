@@ -23,7 +23,7 @@ public class User implements UserDetails {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "username", nullable = false, length = 50)
+    @Column(name = "username", nullable = false, unique = true)
     private String username;
 
     @Column(name = "password", nullable = false)
@@ -31,6 +31,12 @@ public class User implements UserDetails {
 
     @Column(name = "gender", nullable = false)
     private boolean gender;
+
+    @Column(name = "character_id", unique = true)
+    private String characterId;
+
+    @Column(name = "character_name", nullable = false)
+    private String characterName;
 
     @ManyToMany
     @JoinTable(

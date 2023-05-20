@@ -38,13 +38,18 @@ public class UserServiceImpl implements UserService {
         User user = userForm.toEntity();
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         RegistrationHistory registrationHistory = new RegistrationHistory();
-        List<Job> jobs = new ArrayList<>();
-        for (String job : userForm.getJobs()) {
-            jobs.add(jobRepository.findByName(job));
+        if (userForm.getJobs() == null){
+            user.setJobs(new ArrayList<>());
+        }else {
+            user.setJobs(new ArrayList<>());
+            List<Job> jobs = new ArrayList<>();
+            for (String job : userForm.getJobs()) {
+                jobs.add(jobRepository.findByName(job));
+            }
+            user.setJobs(jobs);
         }
         Race race = raceRepository.findByName(userForm.getRace());
         Rank rank = rankRepository.findByName(userForm.getRank());
-        user.setJobs(jobs);
         user.setRace(race);
         user.setRank(rank);
         user.setActive(true);
