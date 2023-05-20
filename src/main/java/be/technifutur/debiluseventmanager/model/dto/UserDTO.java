@@ -11,6 +11,7 @@ import java.util.List;
 @Builder
 public class UserDTO {
 
+    private Long id;
     private String username;
     private String gender;
     private String characterId;
@@ -26,6 +27,7 @@ public class UserDTO {
             return null;
         }
         return UserDTO.builder()
+                .id(entity.getId())
                 .username(entity.getUsername())
                 .gender(entity.isGender() ? "Male" : "Female")
                 .characterId(entity.getCharacterId())
