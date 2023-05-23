@@ -17,12 +17,16 @@ public class Event {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @Column(name = "name", nullable = false)
     private String name;
 
+    @Column(name = "description", nullable = false, length = 2500)
     private String description;
 
+    @Column(name = "begin_date", nullable = false)
     private LocalDateTime beginDate;
 
+    @Column(name = "end_date", nullable = false)
     private LocalDateTime endDate;
 
     @ManyToMany

@@ -1,8 +1,10 @@
 package be.technifutur.debiluseventmanager.model.form;
 
 import be.technifutur.debiluseventmanager.model.entity.Event;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Data;
 
@@ -19,9 +21,13 @@ public class EventForm {
     private String description;
 
     @FutureOrPresent
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT")
+    @NotNull
     private LocalDateTime beginDate;
 
     @FutureOrPresent
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT")
+    @NotNull
     private LocalDateTime endDate;
 
     @NotBlank

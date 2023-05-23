@@ -11,12 +11,13 @@ import java.util.List;
 @Builder
 public class EventDTO {
 
+    private Long id;
     private String name;
     private String description;
     private LocalDateTime beginDate;
     private LocalDateTime endDate;
-    private List<UserDTO> participants;
-    private UserDTO organizer;
+    private List<UserEventDTO> participants;
+    private UserEventDTO organizer;
     private List<FeedbackDTO> feedbacks;
 
     public static EventDTO from(Event entity) {
@@ -24,12 +25,13 @@ public class EventDTO {
             return null;
         }
         return EventDTO.builder()
+                .id(entity.getId())
                 .name(entity.getName())
                 .description(entity.getDescription())
                 .beginDate(entity.getBeginDate())
                 .endDate(entity.getEndDate())
-                .participants(entity.getParticipants().stream().map(UserDTO::from).toList())
-                .organizer(UserDTO.from(entity.getOrganizer()))
+                .participants(entity.getParticipants().stream().map(UserEventDTO::from).toList())
+                .organizer(UserEventDTO.from(entity.getOrganizer()))
                 .feedbacks(entity.getFeedbacks().stream().map(FeedbackDTO::from).toList())
                 .build();
     }

@@ -22,8 +22,10 @@ public class Feedback {
     @JoinColumn(name="event_id")
     private Event event;
 
+    @Column(name = "message", nullable = false, length = 2500)
     private String message;
 
+    @Column(name = "rating", nullable = false)
     private int rating;
 
 }
