@@ -3,6 +3,7 @@ package be.technifutur.debiluseventmanager.util;
 import be.technifutur.debiluseventmanager.model.entity.*;
 import be.technifutur.debiluseventmanager.repository.*;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -31,6 +32,7 @@ public class DataInit implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
+
         Job job = new Job();
         job.setName("Warrior");
         jobRepository.save(job);

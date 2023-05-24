@@ -7,7 +7,9 @@ import be.technifutur.debiluseventmanager.model.form.EventForm;
 import be.technifutur.debiluseventmanager.repository.EventRepository;
 import be.technifutur.debiluseventmanager.repository.UserRepository;
 import be.technifutur.debiluseventmanager.service.EventService;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,9 +28,12 @@ public class EventServiceImpl implements EventService{
     @Override
     public void createEvent(EventForm eventForm) {
         Event event = EventForm.toEntity(eventForm);
+        if (!eventForm.getBeginDate().isBefore(eventForm.getEndDate())){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Begin date must be before end date");
+        }
         Optional<User> organizer = userRepository.findByUsername(eventForm.getOrganizer());
         System.out.println(organizer.toString());
-        if (organizer.isEmpty()) throw new RuntimeException("Organizer not found");
+        if (organizer.isEmpty()) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Organizer not found");
         event.setOrganizer(organizer.get());
         eventRepository.save(event);
     }

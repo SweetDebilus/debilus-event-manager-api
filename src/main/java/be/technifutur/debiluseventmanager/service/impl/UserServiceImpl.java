@@ -5,8 +5,10 @@ import be.technifutur.debiluseventmanager.model.entity.*;
 import be.technifutur.debiluseventmanager.model.form.UserForm;
 import be.technifutur.debiluseventmanager.repository.*;
 import be.technifutur.debiluseventmanager.service.UserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -100,7 +102,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDTO> getAllUsers() {
-        return userRepository.findAll().stream().filter(User::isActive).map(UserDTO::from).toList();
+        return userRepository.findAllActiveOrderByRank().stream().map(UserDTO::from).toList();
     }
 
     @Override
@@ -113,8 +115,9 @@ public class UserServiceImpl implements UserService {
             registrationHistoryRepository.save(registrationHistory);
             userToReactivate.setActive(true);
             userRepository.save(userToReactivate);
+        }else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
         }
     }
-
 
 }

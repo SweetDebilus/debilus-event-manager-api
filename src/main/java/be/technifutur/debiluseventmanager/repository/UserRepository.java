@@ -10,10 +10,13 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Long> {
 
 
-    @Query("select u from User u where u.username = ?1")
+    @Query("SELECT u FROM User u WHERE u.username = ?1")
     Optional<User> findByUsername(String username);
 
-    @Query("select u from User u where u.rank.name = ?1")
+    @Query("SELECT u FROM User u WHERE u.rank.name = ?1")
     List<User> findAllByRank(String rank);
+
+    @Query("SELECT u FROM User u WHERE u.isActive = true ORDER BY u.rank.id ASC")
+    List<User> findAllActiveOrderByRank();
 
 }
