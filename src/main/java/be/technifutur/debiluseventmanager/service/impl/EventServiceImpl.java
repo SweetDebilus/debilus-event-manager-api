@@ -1,5 +1,6 @@
 package be.technifutur.debiluseventmanager.service.impl;
 
+import be.technifutur.debiluseventmanager.exception.DateConflitException;
 import be.technifutur.debiluseventmanager.model.dto.EventDTO;
 import be.technifutur.debiluseventmanager.model.entity.Event;
 import be.technifutur.debiluseventmanager.model.entity.User;
@@ -29,7 +30,7 @@ public class EventServiceImpl implements EventService{
     public void createEvent(EventForm eventForm) {
         Event event = EventForm.toEntity(eventForm);
         if (!eventForm.getBeginDate().isBefore(eventForm.getEndDate())){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Begin date must be before end date");
+            throw new DateConflitException();
         }
         Optional<User> organizer = userRepository.findByUsername(eventForm.getOrganizer());
         System.out.println(organizer.toString());
