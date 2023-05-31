@@ -57,8 +57,9 @@ public class EventServiceImpl implements EventService{
     }
 
     @Override
-    public void deleteEvent(Long id) {
+    public void deleteEvent(Long id, String username) {
         Event eventToDelete = eventRepository.findById(id).orElseThrow(() -> new RuntimeException("Event not found"));
+        if (!eventToDelete.getOrganizer().getUsername().equals(username)) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "You are not the organizer of this event");
         eventRepository.delete(eventToDelete);
     }
 
@@ -70,5 +71,25 @@ public class EventServiceImpl implements EventService{
     @Override
     public List<EventDTO> getAllEvents() {
         return eventRepository.findAll().stream().map(EventDTO::from).toList();
+    }
+
+    @Override
+    public void addParticipant(String username, Long id) {
+        Optional<User> user = userRepository.findByUsername(username);
+        if (user.isEmpty()) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User not found");
+        Optional<Event> event = eventRepository.findById(id);
+        if (event.isEmpty()) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Event not found");
+        event.get().getParticipants().add(user.get());
+        eventRepository.save(event.get());
+    }
+
+    @Override
+    public void removeParticipant(String username, Long id) {
+        Optional<User> user = userRepository.findByUsername(username);
+        if (user.isEmpty()) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User not found");
+        Optional<Event> event = eventRepository.findById(id);
+        if (event.isEmpty()) throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Event not found");
+        event.get().getParticipants().remove(user.get());
+        eventRepository.save(event.get());
     }
 }

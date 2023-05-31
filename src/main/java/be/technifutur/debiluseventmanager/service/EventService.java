@@ -11,9 +11,13 @@ public interface EventService {
 
     void updateEvent (EventForm eventForm, Long id);
 
-    void deleteEvent (Long id);
+    void deleteEvent (Long id, String username);
 
     EventDTO getEventById (Long id);
 
     List<EventDTO> getAllEvents ();
+
+    void addParticipant (String username, Long id);
+
+    void removeParticipant (String username, Long id);
 }

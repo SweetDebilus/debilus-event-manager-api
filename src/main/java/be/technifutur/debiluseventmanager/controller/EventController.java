@@ -30,9 +30,19 @@ public class EventController {
         eventService.updateEvent(eventForm, id);
     }
 
-    @DeleteMapping("/{id}/delete")
-    public void deleteEvent(@PathVariable Long id) {
-        eventService.deleteEvent(id);
+    @PatchMapping("/{id}/addParticipant")
+    public void addParticipant(@RequestBody String username, @PathVariable Long id) {
+        eventService.addParticipant(username, id);
+    }
+
+    @PatchMapping("/{id}/removeParticipant")
+    public void removeParticipant(@RequestBody String username, @PathVariable Long id) {
+        eventService.removeParticipant(username, id);
+    }
+
+    @DeleteMapping("/{id}/delete/{username}")
+    public void deleteEvent(@PathVariable Long id, @PathVariable String username) {
+        eventService.deleteEvent(id, username);
     }
 
     @GetMapping("/{id}")
