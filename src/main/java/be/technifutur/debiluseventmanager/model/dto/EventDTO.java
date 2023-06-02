@@ -19,6 +19,7 @@ public class EventDTO {
     private List<UserEventDTO> participants;
     private UserEventDTO organizer;
     private List<FeedbackDTO> feedbacks;
+    private String status;
 
     public static EventDTO from(Event entity) {
         if (entity == null) {
@@ -33,6 +34,7 @@ public class EventDTO {
                 .participants(entity.getParticipants().stream().map(UserEventDTO::from).toList())
                 .organizer(UserEventDTO.from(entity.getOrganizer()))
                 .feedbacks(entity.getFeedbacks().stream().map(FeedbackDTO::from).toList())
+                .status("")
                 .build();
     }
 }
